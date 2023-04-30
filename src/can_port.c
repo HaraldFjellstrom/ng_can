@@ -95,7 +95,7 @@ void encode_can_frame(char *resp, int *resp_index, struct can_frame *can_frame)
   ei_encode_tuple_header(resp, resp_index, 2);
   ei_encode_ulong(resp, resp_index, (unsigned long) can_frame->can_id);
   //REVIEW: is it necessary to buffer this binary if it's under 8 bytes?
-  ei_encode_binary(resp, resp_index, can_frame->data, 8);
+  ei_encode_binary(resp, resp_index, can_frame->data, can_frame->can_dlc);
 }
 
 int can_read(struct can_port *can_port, struct can_frame *can_frame)
