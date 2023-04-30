@@ -65,12 +65,12 @@ static struct can_frame parse_can_frame(const char *req, int *req_index)
       errx(EXIT_FAILURE, "Bad Can ID");
     long data_len;
     char data[8] = "";
-    if(ei_decode_binary(req, req_index, data, &data_len) < 0 || data_len != 8)
+    if(ei_decode_binary(req, req_index, data, &data_len) < 0 || data_len > 8)
       errx(EXIT_FAILURE, "Bad Data");
 
     can_frame.can_id = id;
     can_frame.can_dlc = data_len;
-    memcpy(can_frame.data, data, 8);
+    memcpy(can_frame.data, data, data_len);
     return can_frame;
 }
 
