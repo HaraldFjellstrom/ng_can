@@ -40,7 +40,7 @@ defmodule Ng.Can do
     write(pid, [frames])
   end
 
-  def open(pid, name, args \\[]) do
+  def open(pid, name, speed \\ 250_000, args \\[]) do
     GenServer.call(pid, {:open, name, args})
   end
 
@@ -101,8 +101,8 @@ defmodule Ng.Can do
     %{state | rcvbuf: unsent, rcvbuf_len: num_remaining, awaiting_read: false}
   end
 
-  def handle_call({:open, interface, args}, {from_pid, _}, state) do
-    :os.cmd('ip link set #{interface} type can bitrate 250000 triple-sampling on restart-ms 100')
+  def handle_call({:open, interface, speed, args}, {from_pid, _}, state) do
+    :os.cmd('ip link set #{interface} type can bitrate #{speed} triple-sampling on restart-ms 100')
     :os.cmd 'ip link set #{interface} up type can'
     :os.cmd 'ifconfig #{interface} txqueuelen 1000'
     response = call_port(state, :open,
