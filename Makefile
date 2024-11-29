@@ -50,10 +50,10 @@ all: $(MIX_APP_PATH)/priv $(MIX_APP_PATH)/priv/ng_can
 %.o: %.c
 	$(CC) -c $(ERL_CFLAGS) $(CFLAGS) -o $@ $<
 
-priv:
+$(MIX_APP_PATH)/priv:
 	mkdir -p $(MIX_APP_PATH)/priv
 
-priv/ng_can: $(OBJ)
+$(MIX_APP_PATH)/priv/ng_can: $(OBJ)
 	$(CC) $^ $(ERL_LDFLAGS) $(LDFLAGS) -o $@
 
 clean:
