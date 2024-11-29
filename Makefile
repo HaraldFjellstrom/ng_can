@@ -45,16 +45,16 @@ OBJ=$(SRC:.c=.o)
 
 .PHONY: all clean
 
-all: priv priv/ng_can
+all: $(MIX_APP_PATH)/priv $(MIX_APP_PATH)/priv/ng_can
 
 %.o: %.c
 	$(CC) -c $(ERL_CFLAGS) $(CFLAGS) -o $@ $<
 
 priv:
-	mkdir -p priv
+	mkdir -p $(MIX_APP_PATH)/priv
 
 priv/ng_can: $(OBJ)
 	$(CC) $^ $(ERL_LDFLAGS) $(LDFLAGS) -o $@
 
 clean:
-	rm -f priv/ng_can src/*.o src/ei_copy/*.o
+	rm -f $(MIX_APP_PATH)/priv/ng_can src/*.o src/ei_copy/*.o
