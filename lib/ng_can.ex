@@ -41,7 +41,7 @@ defmodule Ng.Can do
   end
 
   def open(pid, name, speed \\ 250_000, args \\[]) do
-    GenServer.call(pid, {:open, name, args})
+    GenServer.call(pid, {:open, name, speed, args})
   end
 
   def await_read(pid) do
