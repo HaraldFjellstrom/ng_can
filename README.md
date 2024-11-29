@@ -28,3 +28,9 @@ receive do
   other ->
     raise "wrong msg recvd"
 ```
+
+# Recived Frame Format
+
+{id, data}
+id = <<ide::size(1), rtr/srr::size(1), ?::size(1), id::size(29)>>
+
